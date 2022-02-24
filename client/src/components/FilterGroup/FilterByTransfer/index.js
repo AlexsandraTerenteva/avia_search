@@ -1,20 +1,26 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { useFilterContext } from '../../../context/filters';
 import * as actions from '../../../redux/actions/flights';
 
 function FilterByTransfer() {
-  const [filters, setFiltres] = useState([]);
+  const { addFilter, filters } = useFilterContext();
+  const [filter, setFiltre] = useState([]);
   const dispatch = useDispatch();
 
   const onChange = (e) => {
     e.target.checked
-      ? setFiltres((prev) => [...prev, e.target.value])
-      : setFiltres((prev) => prev.filter((item) => item !== e.target.value));
+      ? setFiltre((prev) => [...prev, e.target.value])
+      : setFiltre((prev) => prev.filter((item) => item !== e.target.value));
   };
 
   useEffect(() => {
-    dispatch(actions.filterWithTransfer(filters));
-  }, [filters]);
+    addFilter({ transfer: filter });
+  }, [filter]);
+
+  useEffect(() => {
+    dispatch(actions.filterFlights(filters));
+  }, [dispatch, filters]);
 
   return (
     <div className="pb-6">

@@ -1,7 +1,7 @@
 /* eslint-disable guard-for-in */
 function filterAirlines(data) {
   const obj = {};
-  data.forEach((item) => {
+  data?.forEach((item) => {
     if (!obj[item.flight.carrier.caption]) {
       obj[item.flight.carrier.caption] = [item.flight.price.total];
     }

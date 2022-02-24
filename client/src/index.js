@@ -4,12 +4,15 @@ import ReactDOM from 'react-dom';
 import store from './redux';
 import './index.css';
 import App from './App';
+import { FilterContextProvider } from './context/filters';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <FilterContextProvider>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </FilterContextProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

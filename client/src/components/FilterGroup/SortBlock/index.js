@@ -1,20 +1,19 @@
 import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useFilterContext } from '../../../context/filters';
 import * as actions from '../../../redux/actions/flights';
 
 function SortBlock() {
+  const { addFilter, filters } = useFilterContext();
   const dispatch = useDispatch();
 
-  const handlerSortByAscendingPrice = (e) => {
-    dispatch(actions.sortByAscendingPrice());
+  const handlerSort = (e) => {
+    addFilter({ sort: e.target.value });
   };
 
-  const handlerSortByDescentPrice = (e) => {
-    dispatch(actions.sortByDescentPrice());
-  };
-
-  const handlerSortByDurationTime = (e) => {
-    dispatch(actions.sortByDurationTime());
-  };
+  useEffect(() => {
+    dispatch(actions.filterFlights(filters));
+  }, [filters]);
 
   return (
     <div className="pb-6">
@@ -26,7 +25,7 @@ function SortBlock() {
           name="sort"
           value="ascending-price"
           className="cursor-pointer"
-          onClick={handlerSortByAscendingPrice}
+          onClick={handlerSort}
         />
         <label
           htmlFor="ascending-price"
@@ -43,7 +42,7 @@ function SortBlock() {
           name="sort"
           className="cursor-pointer"
           value="descending-price"
-          onClick={handlerSortByDescentPrice}
+          onClick={handlerSort}
         />
         <label
           htmlFor="descending-price"
@@ -60,7 +59,7 @@ function SortBlock() {
           name="sort"
           value="duration"
           className="cursor-pointer"
-          onClick={handlerSortByDurationTime}
+          onClick={handlerSort}
         />
         <label
           htmlFor="duration"
