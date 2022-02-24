@@ -2,7 +2,7 @@ import TicketInfo from '../TicketInfo';
 
 function TicketItem({ flight }) {
   const {
-    carrier, legs, seats, exchange,
+    carrier, legs,
   } = flight.flight;
   const { total } = flight.flight.price;
   const airlineLogoPath = `http://pics.avs.io/80/50/${carrier?.airlineCode}.png`;
